@@ -36,12 +36,25 @@ if (reveals.length) {
 
 // ─── Gallery Slider with arrows ─────────────────────────────────────────────
 document.querySelectorAll('.product-gallery').forEach(gallery => {
-  const mainImg   = gallery.querySelector('.gallery-main img');
+  const galleryMain = gallery.querySelector('.gallery-main');
+  const mainImg   = galleryMain?.querySelector('img');
   const thumbs    = gallery.querySelectorAll('.gallery-thumb');
-  const prevArrow = gallery.querySelector('.gallery-arrow.prev');
-  const nextArrow = gallery.querySelector('.gallery-arrow.next');
+  const prevArrow = galleryMain?.querySelector('.gallery-arrow.prev');
+  const nextArrow = galleryMain?.querySelector('.gallery-arrow.next');
 
-  if (!thumbs.length || !mainImg) return;
+  if (!galleryMain || !thumbs.length || !mainImg) return;
+
+  if (prevArrow && nextArrow && !gallery.querySelector('.gallery-slider')) {
+    const slider = document.createElement('div');
+    slider.className = 'gallery-slider';
+    gallery.insertBefore(slider, galleryMain);
+    slider.appendChild(prevArrow);
+    slider.appendChild(galleryMain);
+    slider.appendChild(nextArrow);
+  }
+
+  const prevBtn = gallery.querySelector('.gallery-arrow.prev');
+  const nextBtn = gallery.querySelector('.gallery-arrow.next');
 
   function setActive(thumb) {
     thumbs.forEach(t => t.classList.remove('active'));
@@ -60,14 +73,14 @@ document.querySelectorAll('.product-gallery').forEach(gallery => {
 
   thumbs.forEach(t => t.addEventListener('click', () => setActive(t)));
 
-  if (prevArrow && nextArrow) {
-    prevArrow.addEventListener('click', () => {
+  if (prevBtn && nextBtn) {
+    prevBtn.addEventListener('click', () => {
       const arr = Array.from(thumbs);
       let idx = arr.findIndex(t => t.classList.contains('active')) - 1;
       if (idx < 0) idx = arr.length - 1;
       setActive(arr[idx]);
     });
-    nextArrow.addEventListener('click', () => {
+    nextBtn.addEventListener('click', () => {
       const arr = Array.from(thumbs);
       let idx = arr.findIndex(t => t.classList.contains('active')) + 1;
       if (idx >= arr.length) idx = 0;
@@ -77,8 +90,8 @@ document.querySelectorAll('.product-gallery').forEach(gallery => {
 
   // keyboard navigation
   document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') prevArrow?.click();
-    if (e.key === 'ArrowLeft')  nextArrow?.click();
+    if (e.key === 'ArrowRight') prevBtn?.click();
+    if (e.key === 'ArrowLeft')  nextBtn?.click();
   });
 });
 
@@ -157,6 +170,7 @@ function bindContactForm(contactForm) {
 const contactForm = document.getElementById('wa-contact-form');
 const projectFormSection = document.querySelector('.project-client-form-section');
 const projectRequestBtn = document.querySelector('.product-actions .wa-btn');
+let openProjectFormModal = null;
 
 if (contactForm && projectFormSection) {
   bindContactForm(contactForm);
@@ -206,6 +220,8 @@ if (contactForm && projectFormSection) {
     contactForm.querySelector('#client-name')?.focus();
   };
 
+  openProjectFormModal = openModal;
+
   projectRequestBtn?.addEventListener('click', e => {
     e.preventDefault();
     openModal();
@@ -223,6 +239,58 @@ if (contactForm && projectFormSection) {
     }
   });
 }
+
+// ─── Showcase inspiration section (project pages) ─────────────────────────────
+const SHOWCASE_IMAGES = [
+  { src: '../assets/show/image.png', caption: 'مثال لموقع تجاري — يمكن تنفيذ تصميم مشابه' },
+  { src: '../assets/show/WhatsApp Image 2026-07-01 at 12.57.13 PM.jpeg', caption: 'مثال لموقع خدمات — قابل للتخصيص حسب مشروعك' }
+];
+
+function initShowcaseInspiration(onRequest) {
+  if (!document.querySelector('.product-layout')) return;
+
+  const techSection = document.querySelector('.product-section:not(.project-client-form-section):not(.showcase-inspiration-section)');
+  if (!techSection || document.querySelector('.showcase-inspiration-section')) return;
+
+  const section = document.createElement('section');
+  section.className = 'product-section showcase-inspiration-section reveal';
+  section.innerHTML = `
+    <div class="wrap">
+      <h2>مواقع يمكننا تنفيذها لك</h2>
+      <p class="section-lead">أمثلة لمواقع تجاريه نقدر ننفّذ لك موقع مشابه بنفس الجودة — اختر اللي يعجبك وابدأ طلبك.</p>
+      <div class="showcase-grid">
+        ${SHOWCASE_IMAGES.map((item, i) => `
+          <figure class="showcase-card">
+            <img src="${encodeURI(item.src)}" alt="مثال موقع ${i + 1}" loading="lazy">
+            <figcaption>${item.caption}</figcaption>
+          </figure>
+        `).join('')}
+      </div>
+      <div class="showcase-cta">
+        <a href="#" class="wa-btn showcase-request-btn">📝 اطلب موقع مشابه الآن</a>
+      </div>
+    </div>
+  `;
+
+  techSection.insertAdjacentElement('afterend', section);
+
+  section.querySelector('.showcase-request-btn')?.addEventListener('click', e => {
+    e.preventDefault();
+    onRequest?.();
+  });
+
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealObserver.observe(section);
+}
+
+initShowcaseInspiration(() => openProjectFormModal?.());
 
 // ─── Light / Dark Mode Toggle ────────────────────────────────────────────────
 const themeBtn  = document.getElementById('theme-toggle');
