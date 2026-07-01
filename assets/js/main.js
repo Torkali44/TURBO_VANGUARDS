@@ -116,8 +116,11 @@ if (navToggle && siteHeader) {
 }
 
 // ─── WhatsApp Contact Form ───────────────────────────────────────────────────
-const contactForm = document.getElementById('wa-contact-form');
-if (contactForm) {
+function bindContactForm() {
+  const contactForm = document.getElementById('wa-contact-form');
+  if (!contactForm || contactForm.dataset.bound === 'true') return;
+  contactForm.dataset.bound = 'true';
+
   contactForm.addEventListener('submit', e => {
     e.preventDefault();
     const agree = document.getElementById('terms-agree');
@@ -127,15 +130,17 @@ if (contactForm) {
       return;
     }
 
-    const name    = document.getElementById('client-name')?.value.trim();
-    const phone   = document.getElementById('client-phone')?.value.trim();
-    const email   = document.getElementById('client-email')?.value.trim();
-    const idNum   = document.getElementById('client-id')?.value.trim();
+    const name     = document.getElementById('client-name')?.value.trim();
+    const phone    = document.getElementById('client-phone')?.value.trim();
+    const email    = document.getElementById('client-email')?.value.trim();
+    const idNum    = document.getElementById('client-id')?.value.trim();
     const siteType = contactForm.querySelector('input[name="site-type"]:checked')?.value;
-    const details = document.getElementById('project-details')?.value.trim();
+    const details  = document.getElementById('project-details')?.value.trim();
+    const project  = document.querySelector('.product-info h1')?.textContent.trim();
 
     let msg = `السلام عليكم فريق Turbo VanGuards 👋\n\n`;
     msg += `📋 *نموذج عميل جديد*\n\n`;
+    if (project) msg += `📌 *المشروع:* ${project}\n\n`;
     msg += `*بيانات التواصل:*\n`;
     if (name)  msg += `👤 الاسم الكامل: ${name}\n`;
     if (phone) msg += `📱 رقم الهاتف: ${phone}\n`;
@@ -144,12 +149,13 @@ if (contactForm) {
     msg += `\n*معلومات المشروع:*\n`;
     if (siteType) msg += `🌐 نوع الموقع: ${siteType}\n`;
     if (details)  msg += `📝 التفاصيل:\n${details}\n`;
-    msg += `\n✅ أوافق على جميع الشروط والأحكام\n`;
-    msg += `💰 قيمة الخدمة: 1400 درهم إ.م`;
+    msg += `\n✅ أوافق على جميع الشروط والأحكام`;
 
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   });
 }
+
+bindContactForm();
 
 // ─── Light / Dark Mode Toggle ────────────────────────────────────────────────
 const themeBtn  = document.getElementById('theme-toggle');
