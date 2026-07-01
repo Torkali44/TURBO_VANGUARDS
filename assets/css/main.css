@@ -78,6 +78,12 @@ a {
   text-decoration: none;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* ---------- header ---------- */
 header {
   position: fixed;
@@ -197,6 +203,32 @@ nav.wrap {
 .wa-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+}
+
+.nav-toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 1.25rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.nav-toggle:hover {
+  border-color: var(--accent-soft);
+  color: var(--accent-soft);
+}
+
+header.nav-open .nav-toggle {
+  border-color: var(--accent);
+  color: var(--accent-soft);
 }
 
 .wa-btn-outline {
@@ -1120,6 +1152,436 @@ body.light-mode select.form-input option {
   min-height: 110px;
 }
 
+.form-checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+.form-checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.form-checkbox-group a {
+  color: var(--accent-soft);
+  text-decoration: underline;
+}
+
+.form-checkbox-group a:hover {
+  color: var(--accent);
+}
+
+/* ---------- courses & store ---------- */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.service-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  transition: var(--transition);
+}
+
+.service-card:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.service-card .service-icon {
+  font-size: 2.2rem;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.service-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+}
+
+.service-card p {
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  margin-bottom: 20px;
+}
+
+.service-card ul {
+  list-style: none;
+  margin-bottom: 24px;
+}
+
+.service-card ul li {
+  font-size: 0.88rem;
+  color: var(--muted);
+  padding: 6px 0;
+  padding-right: 18px;
+  position: relative;
+}
+
+.service-card ul li::before {
+  content: '✓';
+  position: absolute;
+  right: 0;
+  color: var(--accent-soft);
+}
+
+/* ---------- terms page ---------- */
+.terms-page {
+  padding-bottom: 80px;
+}
+
+.terms-content {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.terms-intro {
+  color: var(--text-soft);
+  margin-bottom: 40px;
+  font-size: 1rem;
+}
+
+.terms-block {
+  margin-bottom: 32px;
+  padding: 24px 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.terms-block h2 {
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+  color: var(--accent-soft);
+}
+
+.terms-block ul {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.terms-block ul li {
+  font-size: 0.92rem;
+  color: var(--text-soft);
+  padding-right: 16px;
+  position: relative;
+  line-height: 1.7;
+}
+
+.terms-block ul li::before {
+  content: '•';
+  position: absolute;
+  right: 0;
+  color: var(--accent);
+}
+
+.terms-block p {
+  font-size: 0.92rem;
+  color: var(--text-soft);
+  line-height: 1.8;
+}
+
+.terms-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px 24px;
+}
+
+.footer-inner a {
+  color: var(--accent-soft);
+  font-size: 0.82rem;
+}
+
+.footer-inner a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- client form (Tally-style) ---------- */
+.client-form-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.client-form {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 40px 36px 32px;
+  display: grid;
+  gap: 28px;
+  text-align: right;
+  box-shadow: var(--shadow);
+}
+
+.form-header {
+  text-align: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.form-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
+  object-fit: cover;
+  margin-bottom: 16px;
+  border: 2px solid var(--line);
+}
+
+.form-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0;
+}
+
+.form-section {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 18px;
+}
+
+.form-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  padding: 0;
+  margin-bottom: 4px;
+  width: 100%;
+}
+
+.req {
+  color: #f87171;
+}
+
+.field-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-soft);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.radio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 520px) {
+  .radio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.radio-option:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+.radio-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.radio-option:has(input:checked) {
+  border-color: var(--accent);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.radio-letter {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.radio-option:has(input:checked) .radio-letter {
+  background: var(--accent);
+  color: #fff;
+}
+
+.radio-text {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.terms-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+}
+
+.terms-box ul {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.terms-box li {
+  font-size: 0.86rem;
+  color: var(--text-soft);
+  padding-right: 14px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.terms-box li::before {
+  content: '•';
+  position: absolute;
+  right: 0;
+  color: var(--accent-soft);
+}
+
+.form-submit-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--accent-gradient);
+  color: #fff;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.form-submit-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+}
+
+.form-credit {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.form-credit strong {
+  color: var(--accent-soft);
+}
+
+/* ---------- courses grid ---------- */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.course-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  transition: var(--transition);
+  position: relative;
+}
+
+.course-card:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.course-num {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.course-icon {
+  font-size: 2rem;
+}
+
+.course-card h3 {
+  font-size: 1.05rem;
+  margin: 4px 0 8px;
+  line-height: 1.5;
+}
+
+.course-card .price-btn {
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
+  font-size: 0.88rem;
+  padding: 10px 16px;
+}
+
+body.light-mode .client-form {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+body.light-mode .radio-option {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-mode .terms-box {
+  background: rgba(0, 0, 0, 0.03);
+}
+
 footer {
   padding: 36px 0;
   text-align: center;
@@ -1780,42 +2242,130 @@ h1.hero-title em {
   .product-gallery {
     position: static;
   }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .courses-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 960px) {
+  .wrap {
+    padding: 0 20px;
+  }
+
+  nav.wrap {
+    height: auto;
+    min-height: 68px;
+    padding: 10px 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
   .nav-links {
     display: none;
+    order: 10;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 12px 0 4px;
+    border-top: 1px solid var(--line);
+    margin-top: 4px;
+  }
+
+  header.nav-open .nav-links {
+    display: flex;
+  }
+
+  .nav-links a {
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+  }
+
+  .nav-links a:hover {
+    background: rgba(99, 102, 241, 0.1);
+  }
+
+  .nav-links a::after {
+    display: none;
+  }
+
+  .nav-cta {
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    margin-right: auto;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 88px;
+    padding-bottom: 48px;
   }
 
   .hero-grid {
     grid-template-columns: 1fr;
+    gap: 40px;
     text-align: center;
+  }
+
+  .eyebrow {
+    justify-content: center;
+    font-size: 1rem;
   }
 
   .hero-desc {
     margin-left: auto;
     margin-right: auto;
+    font-size: 0.98rem;
   }
 
   .hero-actions {
     justify-content: center;
   }
 
-  .hero-stats {
+  .hero-actions .wa-btn,
+  .hero-actions .btn-ghost {
+    width: 100%;
     justify-content: center;
   }
 
+  .hero-stats {
+    justify-content: center;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
   .hero-visual {
-    max-width: 280px;
+    max-width: min(280px, 85vw);
     margin: 0 auto;
+  }
+
+  .orbit-badge {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  .orbit-badge .badge-lbl {
+    display: none;
   }
 
   .about-grid {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
 
   .project-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
   .pricing-grid {
@@ -1824,14 +2374,80 @@ h1.hero-title em {
 
   .features-strip {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
   .specs-grid {
     grid-template-columns: 1fr;
   }
+
+  section {
+    padding: 72px 0;
+  }
+
+  .sec-head {
+    margin-bottom: 40px;
+    padding: 0 4px;
+  }
+
+  .sec-head .sec-eyebrow {
+    font-size: clamp(2rem, 7vw, 3.2rem);
+  }
+
+  .client-form {
+    padding: 28px 22px 24px;
+  }
+
+  .form-title {
+    font-size: 1.15rem;
+  }
+
+  .terms-page {
+    padding-bottom: 48px;
+  }
+
+  .terms-block {
+    padding: 18px 16px;
+  }
+
+  .terms-actions {
+    flex-direction: column;
+  }
+
+  .terms-actions .wa-btn,
+  .terms-actions .btn-ghost {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 600px) {
+  .wrap {
+    padding: 0 16px;
+  }
+
+  nav.wrap {
+    padding: 10px 16px;
+  }
+
+  .brand-text .sub {
+    display: none;
+  }
+
+  .brand-text .name {
+    font-size: 1.05rem;
+  }
+
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .nav-cta {
+    padding: 8px 12px;
+    font-size: 0.78rem;
+  }
+
   .project-grid {
     grid-template-columns: 1fr;
   }
@@ -1840,13 +2456,177 @@ h1.hero-title em {
     grid-template-columns: 1fr;
   }
 
+  .services-grid,
+  .courses-grid {
+    grid-template-columns: 1fr;
+  }
+
   .hero-stats {
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 16px;
     justify-content: center;
+  }
+
+  .hero-stat {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 120px;
+  }
+
+  .hero-stat .num {
+    font-size: 1.8rem;
+  }
+
+  .hero-stat .lbl {
+    font-size: 0.72rem;
+  }
+
+  .orbit-badge:nth-child(2) {
+    right: -4px;
+  }
+
+  .orbit-badge:nth-child(3) {
+    left: -4px;
   }
 
   .gallery-thumbs {
     grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .gallery-main {
+    border-radius: var(--radius-sm);
+  }
+
+  .product-info h1 {
+    font-size: 1.35rem;
+  }
+
+  .product-actions {
+    flex-direction: column;
+  }
+
+  .product-actions .wa-btn,
+  .product-actions .btn-demo {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .price-card {
+    padding: 28px 22px;
+  }
+
+  .contact-box {
+    padding: 36px 20px;
+  }
+
+  .client-form-wrap {
+    padding-bottom: 24px;
+  }
+
+  .client-form {
+    padding: 24px 16px 20px;
+    gap: 22px;
+    border-radius: var(--radius-sm);
+  }
+
+  .form-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .form-title {
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+
+  .form-input,
+  .form-textarea,
+  select.form-input {
+    font-size: 16px;
+    padding: 12px 14px;
+  }
+
+  .radio-option {
+    padding: 11px 12px;
+  }
+
+  .terms-box {
+    padding: 14px 14px;
+  }
+
+  .terms-box li {
+    font-size: 0.82rem;
+  }
+
+  .form-submit-btn {
+    padding: 14px;
+    font-size: 1rem;
+  }
+
+  .course-card {
+    padding: 24px 18px;
+  }
+
+  .course-card h3 {
+    font-size: 0.98rem;
+  }
+
+  .service-card {
+    padding: 24px 20px;
+  }
+
+  .custom-idea {
+    padding: 28px 20px !important;
+  }
+
+  .custom-idea .wa-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .breadcrumb {
+    padding-top: 88px;
+    font-size: 0.8rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.78rem;
+    line-height: 1.6;
+  }
+
+  section {
+    padding: 56px 0;
+  }
+
+  .pricing-note {
+    font-size: 0.85rem;
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-text .name {
+    font-size: 0.92rem;
+    max-width: 130px;
+    line-height: 1.3;
+  }
+
+  .nav-cta {
+    padding: 7px 10px;
+  }
+
+  .hero-title {
+    font-size: 1.75rem !important;
+  }
+
+  .orbit-badge {
+    display: none;
+  }
+
+  .hero-visual {
+    max-width: 220px;
   }
 }

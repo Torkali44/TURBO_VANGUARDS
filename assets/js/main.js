@@ -1,4 +1,4 @@
-const WA_NUMBER = '201030849986';
+const WA_NUMBER = '971527288800';
 
 function waLink(message) {
   return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -90,23 +90,62 @@ document.querySelectorAll('.btn-demo').forEach(btn => {
   }
 });
 
+// ─── Mobile navigation ───────────────────────────────────────────────────────
+const navToggle = document.getElementById('nav-toggle');
+const siteHeader = document.querySelector('header');
+if (navToggle && siteHeader) {
+  navToggle.addEventListener('click', () => {
+    const open = siteHeader.classList.toggle('nav-open');
+    navToggle.setAttribute('aria-expanded', open);
+    navToggle.textContent = open ? '✕' : '☰';
+  });
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      siteHeader.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.textContent = '☰';
+    });
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 960 && siteHeader.classList.contains('nav-open')) {
+      siteHeader.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.textContent = '☰';
+    }
+  }, { passive: true });
+}
+
 // ─── WhatsApp Contact Form ───────────────────────────────────────────────────
 const contactForm = document.getElementById('wa-contact-form');
 if (contactForm) {
   contactForm.addEventListener('submit', e => {
     e.preventDefault();
+    const agree = document.getElementById('terms-agree');
+    if (agree && !agree.checked) {
+      agree.focus();
+      alert('يرجى الموافقة على جميع الشروط والأحكام قبل الإرسال.');
+      return;
+    }
+
     const name    = document.getElementById('client-name')?.value.trim();
-    const type    = document.getElementById('project-type')?.value;
-    const budget  = document.getElementById('project-budget')?.value.trim();
+    const phone   = document.getElementById('client-phone')?.value.trim();
+    const email   = document.getElementById('client-email')?.value.trim();
+    const idNum   = document.getElementById('client-id')?.value.trim();
+    const siteType = contactForm.querySelector('input[name="site-type"]:checked')?.value;
     const details = document.getElementById('project-details')?.value.trim();
 
-    let msg = `السلام عليكم بشمهندس ترك 👋\n\n`;
-    msg += `📋 *تفاصيل الطلب الجديد:*\n\n`;
-    if (name)    msg += `👤 *الاسم:* ${name}\n`;
-    if (type)    msg += `💼 *نوع الخدمة:* ${type}\n`;
-    if (budget)  msg += `💰 *الميزانية:* ${budget}\n`;
-    if (details) msg += `📝 *تفاصيل الفكرة:*\n${details}\n`;
-    msg += `\nأتطلع للتواصل والمناقشة 🚀`;
+    let msg = `السلام عليكم فريق Turbo VanGuards 👋\n\n`;
+    msg += `📋 *نموذج عميل جديد*\n\n`;
+    msg += `*بيانات التواصل:*\n`;
+    if (name)  msg += `👤 الاسم الكامل: ${name}\n`;
+    if (phone) msg += `📱 رقم الهاتف: ${phone}\n`;
+    if (email) msg += `✉️ البريد: ${email}\n`;
+    if (idNum) msg += `🪪 رقم الهوية: ${idNum}\n`;
+    msg += `\n*معلومات المشروع:*\n`;
+    if (siteType) msg += `🌐 نوع الموقع: ${siteType}\n`;
+    if (details)  msg += `📝 التفاصيل:\n${details}\n`;
+    msg += `\n✅ أوافق على جميع الشروط والأحكام\n`;
+    msg += `💰 قيمة الخدمة: 1400 درهم إ.م`;
 
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   });
