@@ -1332,6 +1332,109 @@ body.light-mode select.form-input option {
   padding-bottom: 72px;
 }
 
+.project-client-form-section.is-modalized {
+  display: block;
+  padding: 0;
+}
+
+.form-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 8, 24, 0.88);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  z-index: 1200;
+  padding: 20px 12px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.24s ease, visibility 0.24s ease;
+}
+
+.form-modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.form-modal-dialog {
+  width: min(760px, 100%);
+  position: relative;
+  transform: translateY(14px) scale(0.985);
+  opacity: 0;
+  transition: transform 0.26s ease, opacity 0.26s ease;
+}
+
+.form-modal-backdrop.open .form-modal-dialog {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.form-modal-dialog .wrap {
+  width: 100%;
+  max-width: 100%;
+}
+
+.form-modal-close {
+  position: sticky;
+  top: 0;
+  margin-inline-start: auto;
+  margin-bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.92);
+  color: #e2e8f0;
+  cursor: pointer;
+  font-size: 1.05rem;
+  z-index: 2;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.form-modal-close:hover {
+  transform: translateY(-1px);
+  border-color: rgba(129, 140, 248, 0.6);
+  background: rgba(30, 41, 59, 0.96);
+}
+
+.form-modal-dialog .client-form {
+  background: #0f172a;
+  border-color: rgba(148, 163, 184, 0.25);
+  box-shadow: 0 24px 56px rgba(2, 6, 23, 0.6);
+}
+
+body.form-modal-open {
+  overflow: hidden;
+}
+
+body.light-mode .form-modal-backdrop {
+  background: rgba(12, 17, 34, 0.72);
+}
+
+body.light-mode .form-modal-close {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: rgba(15, 23, 42, 0.15);
+}
+
+body.light-mode .form-modal-close:hover {
+  border-color: rgba(99, 102, 241, 0.45);
+  background: #f8fafc;
+}
+
+body.light-mode .form-modal-dialog .client-form {
+  background: #ffffff;
+  border-color: rgba(148, 163, 184, 0.32);
+  box-shadow: 0 20px 46px rgba(15, 23, 42, 0.18);
+}
+
 .client-form {
   background: var(--bg-card);
   border: 1px solid var(--line);

@@ -116,26 +116,25 @@ if (navToggle && siteHeader) {
 }
 
 // ─── WhatsApp Contact Form ───────────────────────────────────────────────────
-function bindContactForm() {
-  const contactForm = document.getElementById('wa-contact-form');
+function bindContactForm(contactForm) {
   if (!contactForm || contactForm.dataset.bound === 'true') return;
   contactForm.dataset.bound = 'true';
 
   contactForm.addEventListener('submit', e => {
     e.preventDefault();
-    const agree = document.getElementById('terms-agree');
+    const agree = contactForm.querySelector('#terms-agree');
     if (agree && !agree.checked) {
       agree.focus();
       alert('يرجى الموافقة على جميع الشروط والأحكام قبل الإرسال.');
       return;
     }
 
-    const name     = document.getElementById('client-name')?.value.trim();
-    const phone    = document.getElementById('client-phone')?.value.trim();
-    const email    = document.getElementById('client-email')?.value.trim();
-    const idNum    = document.getElementById('client-id')?.value.trim();
+    const name     = contactForm.querySelector('#client-name')?.value.trim();
+    const phone    = contactForm.querySelector('#client-phone')?.value.trim();
+    const email    = contactForm.querySelector('#client-email')?.value.trim();
+    const idNum    = contactForm.querySelector('#client-id')?.value.trim();
     const siteType = contactForm.querySelector('input[name="site-type"]:checked')?.value;
-    const details  = document.getElementById('project-details')?.value.trim();
+    const details  = contactForm.querySelector('#project-details')?.value.trim();
     const project  = document.querySelector('.product-info h1')?.textContent.trim();
 
     let msg = `السلام عليكم فريق Turbo VanGuards 👋\n\n`;
@@ -155,7 +154,75 @@ function bindContactForm() {
   });
 }
 
-bindContactForm();
+const contactForm = document.getElementById('wa-contact-form');
+const projectFormSection = document.querySelector('.project-client-form-section');
+const projectRequestBtn = document.querySelector('.product-actions .wa-btn');
+
+if (contactForm && projectFormSection) {
+  bindContactForm(contactForm);
+  if (projectRequestBtn) {
+    projectRequestBtn.textContent = '📝 ابدأ طلب مشروعك الآن';
+  }
+
+  // Convert the inline form section to a modal so it opens on demand.
+  projectFormSection.classList.add('is-modalized');
+
+  const modalBackdrop = document.createElement('div');
+  modalBackdrop.className = 'form-modal-backdrop';
+  modalBackdrop.setAttribute('aria-hidden', 'true');
+
+  const modalDialog = document.createElement('div');
+  modalDialog.className = 'form-modal-dialog';
+  modalDialog.setAttribute('role', 'dialog');
+  modalDialog.setAttribute('aria-modal', 'true');
+  modalDialog.setAttribute('aria-label', 'نموذج طلب مشروع');
+
+  const modalCloseBtn = document.createElement('button');
+  modalCloseBtn.className = 'form-modal-close';
+  modalCloseBtn.type = 'button';
+  modalCloseBtn.setAttribute('aria-label', 'إغلاق نموذج التسجيل');
+  modalCloseBtn.textContent = '✕';
+
+  const sectionWrap = projectFormSection.querySelector('.wrap');
+  modalDialog.appendChild(modalCloseBtn);
+  if (sectionWrap) {
+    modalDialog.appendChild(sectionWrap);
+  } else {
+    modalDialog.appendChild(projectFormSection);
+  }
+  modalBackdrop.appendChild(modalDialog);
+  document.body.appendChild(modalBackdrop);
+
+  const closeModal = () => {
+    modalBackdrop.classList.remove('open');
+    document.body.classList.remove('form-modal-open');
+    modalBackdrop.setAttribute('aria-hidden', 'true');
+  };
+
+  const openModal = () => {
+    modalBackdrop.classList.add('open');
+    document.body.classList.add('form-modal-open');
+    modalBackdrop.setAttribute('aria-hidden', 'false');
+    contactForm.querySelector('#client-name')?.focus();
+  };
+
+  projectRequestBtn?.addEventListener('click', e => {
+    e.preventDefault();
+    openModal();
+  });
+
+  modalCloseBtn.addEventListener('click', closeModal);
+
+  modalBackdrop.addEventListener('click', e => {
+    if (e.target === modalBackdrop) closeModal();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modalBackdrop.classList.contains('open')) {
+      closeModal();
+    }
+  });
+}
 
 // ─── Light / Dark Mode Toggle ────────────────────────────────────────────────
 const themeBtn  = document.getElementById('theme-toggle');
