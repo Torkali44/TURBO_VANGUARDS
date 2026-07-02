@@ -647,15 +647,22 @@ section {
 /* ---------- about ---------- */
 .about-grid {
   display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
   gap: 60px;
   align-items: start;
+}
+
+.about-text {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+  display: grid;
+  gap: 16px;
 }
 
 .about-text p {
   color: var(--text-soft);
   line-height: 2;
-  margin-bottom: 16px;
+  margin: 0;
 }
 
 .about-text strong {
@@ -674,6 +681,52 @@ section {
   color: var(--accent-soft);
   margin-bottom: 10px;
   font-family: 'JetBrains Mono', monospace;
+}
+
+.skill-collapse {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
+.skill-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 22px;
+  cursor: pointer;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.96rem;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.skill-summary::-webkit-details-marker {
+  display: none;
+}
+
+.skill-summary::after {
+  content: '▾';
+  font-size: 1rem;
+  color: var(--accent-soft);
+}
+
+details[open] .skill-summary::after {
+  content: '▴';
+}
+
+.summary-note {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+.skill-collapse-grid {
+  display: grid;
+  gap: 22px;
+  padding: 22px;
+  border-top: 1px solid var(--line);
 }
 
 .pill-row {
@@ -1466,6 +1519,14 @@ body.light-mode .form-modal-dialog .client-form {
   font-weight: 800;
   color: var(--text);
   margin: 0;
+}
+
+.form-intro {
+  color: var(--text-soft);
+  font-size: 0.96rem;
+  margin: 10px auto 0;
+  max-width: 600px;
+  line-height: 1.75;
 }
 
 .form-section {
