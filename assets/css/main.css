@@ -1025,10 +1025,15 @@ body.light-mode .pricing-note {
 }
 
 .price-from {
-  font-size: 0.75rem;
-  color: var(--muted);
-  margin: 4px 0 20px;
-  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-soft);
+  margin: 0 0 6px;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.price-card .price-amount {
+  margin-bottom: 20px;
 }
 
 .price-feats {
